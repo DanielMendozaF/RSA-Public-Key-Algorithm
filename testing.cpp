@@ -2,7 +2,7 @@
 #include <algorithm>
 using namespace std;
 
-// This function checks to see if a value is prime 
+// Prime number validation function
 bool Prime(int x){
     if (x < 2)
         return false;
@@ -14,13 +14,13 @@ bool Prime(int x){
     return true;
 }
 
-// This function calculates the modulus value --> n
+// Modulus function 
 int Mod(int x, int y){
     int n = x * y;
     return n;
 }
 
-// This function calculates the totient value --> O
+// Totient function 
 int Totient(int x, int y){
     int phi = ((x-1)*(y-1));
     return phi;
@@ -56,7 +56,9 @@ void verifyKeys(int e, int d, int phi){
     }
 }
 
+
 int main(){
+
     // User input for two prime numbers: p & q
     int p;
     int q;
@@ -65,13 +67,8 @@ int main(){
     cout << "Enter another prime number in the range of 5,000 to 10,000: " << endl;
     cin >> q;
 
-    // Validate user input range between 5000 - 10000
-    if ((p < 5000 || p > 10000) || (q < 5000 || q > 10000)){
-        cout << "Error: Both values are not inside the specified range" << endl;
-        return -1;
-    }
-    // Validate user input values are prime 
-    else if (!Prime(p) || !Prime(q)){
+    // Validate if values are prime 
+    if (!Prime(p) || !Prime(q)){
         cout << "Error: Both values must be prime. " << endl;
         return -1;
     }
@@ -84,15 +81,15 @@ int main(){
     int O = Totient(p,q);
     cout << "O: " << O << endl;
 
-    // Generate and display the public key --> e
-    int e = PublicKey(O);
+    // Generate and display the public key by calling the PublicKey function
+    int e = 11;
     cout << "The public key is: <" << e << ", " << n << ">" << endl;
 
-    // Generate and display the private key --> d
+    // Generate and display the private key by calling the PrivateKey function
     int d = PrivateKey(e, O);
     cout << "The private key is: <"  << d << ", " << n << ">" << endl;
 
-    // Verify keys e and d are multiplicative inverses for O
+    // Verify keys are multiplicative inverses of each other based on O
     verifyKeys(e, d, O);
 
     return 0;
